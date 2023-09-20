@@ -1,3 +1,7 @@
+@php
+$page='produits';
+@endphp
+
 @extends('base')
 
 @section('title',$categorie->designation)

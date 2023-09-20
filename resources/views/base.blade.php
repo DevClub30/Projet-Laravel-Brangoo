@@ -50,7 +50,7 @@
                       @endauth
 
            @endif
-						<li><a class="nav-link" href="cart.html"><img src="/images/cart.svg">(<span class="badge badge-pill badge-dark">{{Cart::count()}}</span>)</a></li>
+						<li><a class="nav-link" href="{{route('cart.index')}}"><img src="/images/cart.svg">(<span class="badge badge-pill badge-dark">{{Cart::count()}}</span>)</a></li>
 					</ul>
 				</div>
 			</div>

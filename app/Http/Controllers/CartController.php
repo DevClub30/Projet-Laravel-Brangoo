@@ -15,8 +15,9 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {        /*   dd(Cart::content()); */
+
+      return view('cart.index');
     }
 
     /**
@@ -35,7 +36,7 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Categorie  $categorie)
     {
         //
        
@@ -45,13 +46,13 @@ class CartController extends Controller
         return $cartItem->id === $request->produit_id;
     });
         //dd($duplicata);
-    if ($duplicata->isNotEmpty()){
+    if ($duplicata->isNotEmpty())
+    {
 
         return to_route('home')->with('success','cet produit existe deja dans le panier');
     }
 
-        Cart::add($request->produit_id,$categorie->img, 1, $categorie->prix, )
-                                                                                 ->associate('Categorie');
+       Cart::add($request->produit_id,$categorie->designation, 1, $categorie->prix, ['img'=>$categorie->img])->associate($categorie);
 
         return to_route('home')->with('success','le produit a ete ajouter au le panier');
 
@@ -97,8 +98,9 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($rowid)
     {
-        //
+       Cart::remove($rowid);
+       return to_route('cart.index')->with('success','produit supprime ');
     }
 }

@@ -35,4 +35,6 @@ class Categorie extends Model
         return Str::slug($this->designation);
 
     }
+
+
 }

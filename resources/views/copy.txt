@@ -1,29 +1,6 @@
-@php
-$page='home';
-@endphp
-
-@extends('base')
-@section('title','Mon site')
-@section('content')
-<!--
- <div class="container">
-    <h1>Mon site</h1>
-    <div class="container-fluid">
-        <h2>Nos derniers produits</h2>
-            <hr>
-        <div class="row">
-            @foreach($categories as $categorie)
-                <div class="col-4">
-                @include('categories.card')
-                </div>
-            @endforeach
-        </div>
-    </div>
-
-</div> -->
-    
-	<!--Start Product Section -->
-		<div class="product-section">
+	<!--
+		 Start Product Section -->
+		    <div class="product-section">
 			<div class="container">
 				<div class="row">
 
@@ -79,11 +56,11 @@ $page='home';
 
 				</div>
 			</div>
-		</div>
+		    </div>
 		<!-- End Product Section -->
 
 		<!-- Start Why Choose Us Section -->
-		<div class="why-choose-section">
+		    <div class="why-choose-section">
 			<div class="container">
 				<div class="row justify-content-between">
 					<div class="col-lg-6">
@@ -142,11 +119,11 @@ $page='home';
 
 				</div>
 			</div>
-		</div>
+		    </div>
 		<!-- End Why Choose Us Section -->
 	
 		<!-- Start We Help Section -->
-		<div class="we-help-section">
+		    <div class="we-help-section">
 			<div class="container">
 				<div class="row justify-content-between">
 					<div class="col-lg-7 mb-5 mb-lg-0">
@@ -170,11 +147,11 @@ $page='home';
 					</div>
 				</div>
 			</div>
-		</div>
+		    </div>
 		<!-- End We Help Section -->
 
 		<!-- Start Blog Section -->
-		<div class="blog-section">
+		    <div class="blog-section">
 			<div class="container">
 				<div class="row mb-5">
 					<div class="col-md-6">
@@ -225,6 +202,5 @@ $page='home';
 
 				</div>
 			</div>
-		</div>
+		    </div>
 	  	<!-- End Blog Section -->
-@endsection

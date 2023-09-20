@@ -53,6 +53,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
     });
 /**--------------------------------------------------------------------------------------- */
 Route::post('/panier/ajoute',[CartController::class,'store'])->name('cart.store'); 
+Route::get('/panier/index',[CartController::class,'index'])->name('cart.index');
+Route::delete('/panier/{rowid}',[CartController::class,'destroy'])->name('cart.destroy');
 Route::get('/panier/delete',function(){
     Cart::destroy();
 })->name('delete'); 

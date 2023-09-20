@@ -1,4 +1,6 @@
-
+@php
+$page='produits';
+@endphp
 
 
 

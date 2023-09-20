@@ -10,8 +10,7 @@
                   <h2><img src="/images/favicon.png" alt="" srcset=""> Brangoo...</h2>
                 </div>
 
-                  <h4>New here?</h4>
-                  <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+                    <h4>Bonjour! Veuillez-vous inscrire pour continuer</h4>
 
                 <form class="pt-3" method="POST" action="{{ route('register') }}">
 
