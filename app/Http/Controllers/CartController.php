@@ -75,9 +75,10 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function vide()
     {
-        //
+        Cart::destroy();
+        return to_route('cart.index')->with('success','panier vié! ');
     }
 
     /**

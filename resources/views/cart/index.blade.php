@@ -2,7 +2,9 @@
 @extends('layouts.app_admin')
 @section('content')
 @if(Cart::count()>0)
-
+<a href="{{route('delete')}}">
+    <button class="btn btn-danger">vider</button>
+</a>
     <table class="table">
     <thead>
         <tr>
