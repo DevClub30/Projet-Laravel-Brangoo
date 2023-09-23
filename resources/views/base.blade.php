@@ -45,7 +45,7 @@
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
               @if (Route::has('login'))
                     @auth
-                      <li><a class="nav-link" href="#"><img src="/images/profil.png" class="imagestyle"></a></li>
+                      <li><a class="nav-link" href="/"><img src="/images/profil.png" class="imagestyle"></a></li>
                     @else
 						          <li><a class="nav-link" href="{{ route('login') }}"><img src="/images/user.png"></a></li>
 
