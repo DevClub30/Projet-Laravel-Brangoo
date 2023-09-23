@@ -78,7 +78,7 @@ class CartController extends Controller
     public function vide()
     {
         Cart::destroy();
-        return to_route('cart.index')->with('success','panier vié! ');
+        return to_route('cart.index')->with('success','panier vidé! ');
     }
 
     /**
@@ -88,9 +88,10 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $rowid)
     {
-        //
+        
+         
     }
 
     /**

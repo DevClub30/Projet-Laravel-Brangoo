@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top" arial-label="Furni navigation bar" >
@@ -35,26 +36,45 @@
 						<li><a class="nav-link" @class(['nav-link','active' => str_contains($route,'categorie.')]) href="{{route('categorie.index')}}">Nos Prodruits</a></li>
 						<li><a class="nav-link" href="">A propos</a></li>
 						<li><a class="nav-link" href="">Services</a></li>
-						<!--  <li><a class="nav-link" href="blog.html">Blog</a></li> -->
+            @auth
+						 <li><a class="nav-link" href="blog.html">Blog</a></li>
+            @endauth
 						<li><a class="nav-link" href="">Contactez Nous</a></li>
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-             @if (Route::has('login'))
+              @if (Route::has('login'))
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                      <li><a class="nav-link" href="#"><img src="/images/profil.png" class="imagestyle"></a></li>
                     @else
-						          <li><a class="nav-link" href="{{ route('login') }}"><img src="/images/user.svg"></a></li>
+						          <li><a class="nav-link" href="{{ route('login') }}"><img src="/images/user.png"></a></li>
 
-           
                       @endauth
 
-           @endif
+              @endif
 						<li><a class="nav-link" href="{{route('cart.index')}}"><img src="/images/cart.svg">(<span class="badge badge-pill badge-dark">{{Cart::count()}}</span>)</a></li>
 					</ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            @auth
+              <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                            
+                           
+                            <!--    <li>
+                                  <a href=""><img src="/images/utilisateur.png" alt=""></a>
+                                </li> -->
+                            </x-dropdown-link>
+                </form>
+            @endauth
+          </ul>
 				</div>
 			</div>
-
+      
      <!--  <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -69,6 +89,7 @@
                     @endauth
                 </div>
             @endif -->
+
 
 		</nav>
  
@@ -99,12 +120,22 @@
 
 @include('Partials.header')   
 
-@if(session('success'))
-<div class="btn btn-success">
-   {{session('success')}}
-</div>
-@endif
-@if($errors->any())
+  @if(session('success'))
+
+    <script>
+      swal("Message","{{session('success')}}", 'success',{
+        button:true,
+        button:OK,
+      })
+    </script>
+
+
+    <div class="alert alert-success">
+      {{session('success')}}
+    </div>
+  @endif
+
+  @if($errors->any())
     <div class="alert alert-danger">
         <ul class="my-0">
             @foreach($errors->all() as $error)
@@ -112,7 +143,8 @@
             @endforeach
         </ul>
     </div>
-@endif
+  @endif
+  
   <div class=" container-fluid">
       @yield('content')
   </div>

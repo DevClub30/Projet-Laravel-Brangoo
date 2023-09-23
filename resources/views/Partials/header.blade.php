@@ -146,6 +146,24 @@
 					</div>
 				</div>	
 			@break
+			@case('panier'):
+				<div class="hero">
+					<div class="container">
+						<div class="row justify-content-between">
+							<div class="col-lg-5">
+								<div class="intro-excerpt">
+									<h1>Mes Commandes</h1>
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<div class="hero-img-wrap">
+									<img src="" class="img-fluid">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+			@break
 
 
 		@endswitch

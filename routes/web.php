@@ -24,9 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [HomeController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -47,7 +45,7 @@ Route::get('/categorie/{slug}-{categorie}',[CategoriesController::class,'show'])
 ]);
 
 
-Route::prefix('admin')->name('admin.')->group(function(){
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('produit',ProduitController::class)->except(['show']);
     Route::resource('categorie',CategorieController::class)->except(['show']);
     });
@@ -56,4 +54,5 @@ Route::post('/panier/ajoute',[CartController::class,'store'])->name('cart.store'
 Route::get('/panier/index',[CartController::class,'index'])->name('cart.index');
 Route::delete('/panier/{rowid}',[CartController::class,'destroy'])->name('cart.destroy');
 Route::get('/panier/delete',[CartController::class,'vide'])->name('delete'); 
+Route::patch('/panier/{rowid}',[CartController::class,'update'])->name('cart.update'); 
 

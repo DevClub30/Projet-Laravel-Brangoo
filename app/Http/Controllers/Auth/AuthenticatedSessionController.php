@@ -29,6 +29,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if($request->email==="admin@gmail.com"){
+            return to_route('admin.produit.index');
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
