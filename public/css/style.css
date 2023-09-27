@@ -590,7 +590,8 @@ a {
     position: absolute;
     top: -200px;
     z-index: 1;
-    right: 0; }
+    right: 0;
+  }
     .footer-section .sofa-img img {
       max-width: 380px; }
   .footer-section .links-wrap {

@@ -74,12 +74,10 @@ class CategorieController extends Controller
 
        $categorie =  Categorie::create($data);
        //dd($image);
-     return to_route('admin.categorie.index')->with('success','categorie ajouté');
+     return to_route('admin.categorie.index')->with('success','produit ajouté');
        
 
-       //$categorie->update($data);
-       // $categorie =  Categorie::create($request->validated());
-        //return to_route('admin.categorie.index')->with('success','categorie ajouté');
+     
     }
 
     /**
@@ -132,7 +130,7 @@ class CategorieController extends Controller
 
        $categorie->update($data);
 
-        return to_route('admin.categorie.index')->with('success','categorie a bien été modifié');
+        return to_route('admin.categorie.index')->with('success','produit a bien été modifié');
     }
 
     /**
@@ -144,7 +142,7 @@ class CategorieController extends Controller
     public function destroy(Categorie $categorie)
     {
         $categorie->delete();
-        return to_route('admin.categorie.index')->with('success','Categorie a bien été suppeimé');
+        return to_route('admin.categorie.index')->with('success','produit a bien été suppeimé');
     }
     
   

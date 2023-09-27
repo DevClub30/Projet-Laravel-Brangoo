@@ -19,21 +19,37 @@ $page='produits';
 </div>
 <hr>
 <br>
-    <div class="row">
-        @forelse($categories as $categorie)
-            <div class="col">
-              @include('categories.card')
+    <div class="product-section pt-0">
+        <div class="container">
+            <div class="row">
+                @forelse($categories as $categorie)
+                    <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                        <a class="product-item" href="{{route('categorie.show',['slug'=>$categorie->getslug(),'categorie'=>$categorie])}}">
+                            <img src="{{$categorie->imageurl()}}" class="img-fluid product-thumbnail">
+                            <h3 class="product-title">{{$categorie->designation}}</h3>
+                            <strong class="product-price">  {{number_format($categorie->prix, thousands_separator:' ')}} FCFA</strong>
+                            <span class="icon-cross">
+                                <img src="/images/cross.svg" class="img-fluid">
+                            </span>
+                        </a>
+                    </div>
+                    
+                @empty
+                    <div class="col">
+                        aucun produit ne correspond a votre recherce
+                    </div>
+                @endforelse
             </div>
-        @empty
-        <div class="col">
-             aucun produit ne correspond a votre recherce
-            </div>
-        @endforelse
+        </div>
     </div>
     <div class="my-4">
         {{$categories->links()}}
     </div>
 </div>
 
+
+<br>
+<br>
+<br>
 
 @endsection

@@ -1,1 +1,1 @@
-<a {{ $attributes->merge(['class' => 'nav-link']) }}>{{ $slot }}<img src="/images/utilisateur.png" alt=""></a>
+ <a {{ $attributes->merge(['class' => 'nav-link']) }}><img src="/images/utilisateur.png" alt=""></a>

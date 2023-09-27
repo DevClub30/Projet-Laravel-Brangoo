@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commande;
+use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Cart;
 use App\Http\Requests\StoreCommandeRequest;
 use App\Http\Requests\UpdateCommandeRequest;
 
@@ -13,9 +15,37 @@ class CommandeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Cart $cart,Request $request)
     {
-        //
+       /*  $data = $cart->content();
+  
+        foreach($data as $dat)
+        {
+            $commande->produit_id=$dat->id;
+           $commande->rowId=$dat->rowId;
+        }
+       dd($dat->id);
+        $commandes = [];
+        $i=0;
+
+        foreach($data as $commande)
+        {
+        
+           $commandes['produit_'.$i][]=$commande->qty;
+           $commandes['produit_'.$i][]= $commande->name;
+           $commandes['produit_'.$i][]= $commande->price;
+          $i++;
+
+        }
+        $commande->commandes->serialize($commandes);
+        $commande->user_id=Auth()->user()->id;
+        $commande->save();
+        dd($commande); */
+       /*  dd($cart->content()); */
+        dd(Auth()->user()->id);
+            dd($request->session()->all());
+
+        return view('commande');
     }
 
     /**
@@ -34,9 +64,34 @@ class CommandeController extends Controller
      * @param  \App\Http\Requests\StoreCommandeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommandeRequest $request)
+    public function store(StoreCommandeRequest $request ,Cart $cart,Commande $commande)
     {
-        //
+        $data = $cart->content();
+        foreach($data as $data)
+        {
+            $commande->produit_id=$data->id;
+           $commande->rowId=$data->rowId;
+        }
+       
+        $commandes = [];
+        $i=0;
+
+        foreach($data as $commande)
+        {
+        
+           $commandes['produit_'.$i][]=$commande->qty;
+           $commandes['produit_'.$i][]= $commande->name;
+           $commandes['produit_'.$i][]= $commande->price;
+          $i++;
+
+        }
+        $commande->commandes->serialize($commandes);
+        $commande->user_id=Auth()->user()->id;
+        $commande->save();
+        dd(Cart::content());
+       return view('commande');
+      
+
     }
 
     /**

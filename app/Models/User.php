@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Commande;
 use App\Models\Commentaire;
+use Gloudemans\Shoppingcart\Cart;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -54,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Commentaire::class);
     }
+    public function cartdb()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
 }

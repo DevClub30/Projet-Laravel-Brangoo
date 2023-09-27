@@ -15,7 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.user.index',[
+            'users' => User::orderBy('created_at','asc')->paginate(25)
+        ]);
     }
 
     /**
@@ -81,6 +83,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return to_route('admin.user.index')->with('success','utilisateur a bien été suppeimé');
     }
 }

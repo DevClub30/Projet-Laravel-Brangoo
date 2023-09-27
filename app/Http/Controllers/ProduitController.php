@@ -44,7 +44,7 @@ class ProduitController extends Controller
     public function store(StoreProduitRequest $request)
     { 
         $produit =  produit::create($request->validated());
-        return to_route('admin.produit.index')->with('success','produit ajouté');
+        return to_route('admin.produit.index')->with('success','categorie ajoutée');
     }
 
     /**
@@ -81,7 +81,7 @@ class ProduitController extends Controller
     public function update(UpdateProduitRequest $request, Produit $produit)
     {
         $produit->update($request->validated());
-        return to_route('admin.produit.index')->with('success','produit a bien été modifié');
+        return to_route('admin.produit.index')->with('success','categorie a bien été modifiée');
     }
 
     /**
@@ -93,7 +93,7 @@ class ProduitController extends Controller
     public function destroy(Produit $produit)
     {
         $produit->delete();
-        return to_route('admin.produit.index')->with('success','Produit a bien été suppeimé');
+        return to_route('admin.produit.index')->with('success','categorie a bien été suppeimée');
     }
   
 }

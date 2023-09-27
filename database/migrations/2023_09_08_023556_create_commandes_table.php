@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->string("libelle_commande");
-            $table->string("etat_commande");
+            $table->string('rowId');
+            $table->unsignedBigInteger('produit_id');
+            $table->string("nom_produit");
+            $table->integer('qty');
+            $table->integer('prix');
+            $table->text("commandes");
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('livraison_id')->constrained()->onDelete('cascade');
 
 
 

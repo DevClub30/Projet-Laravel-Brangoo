@@ -1,33 +1,10 @@
 <!-- Start Footer Section -->
-    <footer class="footer-section">
+    <footer class="footer-section mt-5">
 			<div class="container relative">
 
 				<div class="sofa-img">
 					<img src="/images/pngegg (1).png" alt="Image" class="img-fluid">
 				</div>
-
-				<!-- <div class="row">
-					<div class="col-lg-8">
-						<div class="subscription-form">
-							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
-
-							<form action="#" class="row g-3">
-								<div class="col-auto">
-									<input type="text" class="form-control" placeholder="Enter your name">
-								</div>
-								<div class="col-auto">
-									<input type="email" class="form-control" placeholder="Enter your email">
-								</div>
-								<div class="col-auto">
-									<button class="btn btn-primary">
-										<span class="fa fa-paper-plane"></span>
-									</button>
-								</div>
-							</form>
-
-						</div>
-					</div>
-				</div> -->
 
 				<div class="row g-5 mb-5">
 					<div class="col-lg-6">
@@ -58,11 +35,7 @@
 								</ul>
 							</div>
 
-							<!-- <div class="col-6 col-sm-6 col-md-3">
-								<ul class="list-unstyled">
-									<li><a href="#">Blog</a></li>
-								</ul>
-							</div> -->
+							
 
 							<div class="col-6 col-sm-6 col-md-3">
 								<ul class="list-unstyled">

@@ -5,22 +5,7 @@ $page='home';
 @extends('base')
 @section('title','Mon site')
 @section('content')
-<!--
- <div class="container">
-    <h1>Mon site</h1>
-    <div class="container-fluid">
-        <h2>Nos derniers produits</h2>
-            <hr>
-        <div class="row">
-            @foreach($categories as $categorie)
-                <div class="col-4">
-                @include('categories.card')
-                </div>
-            @endforeach
-        </div>
-    </div>
 
-</div> -->
     
 	<!--Start Product Section -->
 		<div class="product-section">
@@ -31,51 +16,25 @@ $page='home';
 					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
 						<h2 class="mb-4 section-title">Crafted with excellent material.</h2>
 						<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. </p>
-						<p><a href="#" class="btn">Decouvrire</a></p>
+						<p><a href="{{route('categorie.index')}}" class="btn">Decouvrire</a></p>
 					</div> 
 					<!-- End Column 1 -->
 
-					<!-- Start Column 2 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.html">
-							<img src="/images/manioc.jpg" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="/images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 2 -->
-
-					<!-- Start Column 3 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.html">
-							<img src="/images/manioc.jpg" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Kruzo Aero Chair</h3>
-							<strong class="product-price">$78.00</strong>
-
-							<span class="icon-cross">
-								<img src="/images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
-					<!-- End Column 3 -->
-
+					@foreach($categories as $categorie)
 					<!-- Start Column 4 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.html">
-							<img src="/images/manioc.jpg" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Ergonomic Chair</h3>
-							<strong class="product-price">$43.00</strong>
+						<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+							<a class="product-item" href="{{route('categorie.show',['slug'=>$categorie->getslug(),'categorie'=>$categorie])}}">
+								<img src="{{$categorie->imageurl()}}" class="img-fluid product-thumbnail">
+								<h3 class="product-title">{{$categorie->designation}}</h3>
+								<strong class="product-price">  {{number_format($categorie->prix, thousands_separator:' ')}} FCFA</strong>
 
-							<span class="icon-cross">
-								<img src="/images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
+								<span class="icon-cross">
+									<img src="/images/cross.svg" class="img-fluid">
+								</span>
+							</a>
+						</div>
 					<!-- End Column 4 -->
+					@endforeach
 
 				</div>
 			</div>
@@ -181,7 +140,7 @@ $page='home';
 						<h2 class="section-title">Recent Blog</h2>
 					</div>
 					<div class="col-md-6 text-start text-md-end">
-						<a href="#" class="more">Avoir +</a>
+						<a href="{{route('categorie.index')}}" class="more">Avoir +</a>
 					</div>
 				</div>
 

@@ -6,7 +6,7 @@ $value ??='' ;
 @endphp
 <div @class=(["form-group",$class])>
     <label for="{{$name}}">{{$label}}</label>
-    <select name="{{$name}}" id="{{$name}}"  >
+    <select class="form-control" name="{{$name}}" id="{{$name}}"  >
         @foreach($produits as $k => $v)
             <option value="{{$k}}">{{$v}}</option>
         @endforeach

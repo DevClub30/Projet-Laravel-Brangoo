@@ -27,7 +27,7 @@ class CategoriesController extends Controller
             
         }
          return view('categories.index',[
-            'categories' => $query->paginate(16),
+            'categories' => $query->paginate(8),
             'input'=>$request->validated()
          ]);
     }

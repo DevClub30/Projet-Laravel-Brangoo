@@ -26,9 +26,10 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request , User $user )  : RedirectResponse 
+    public function store(LoginRequest $request, User $user )  : RedirectResponse 
     {
         $admin=$user::find(3);
+       
 
         $request->authenticate();
 
@@ -36,10 +37,10 @@ class AuthenticatedSessionController extends Controller
 
         if($request->email===$admin->email && Hash::check($request->password,$admin->password)){
 
-            return to_route('admin.produit.index');
+            return to_route('admin.')->with('success','Vous etes connecté');
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::HOME)->with('success','Vous etes connecté');
     }
 
     /**
@@ -49,10 +50,15 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+           $request->session()->invalidate();
+         //$request->session()->forget('cart');
+
+  
+       // $request->session()->pull('user', 'default');
+
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success','Vous etes deconnecté');
     }
 }

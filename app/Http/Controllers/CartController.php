@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartBd;
+use App\Models\Panier;
 use App\Models\Produit;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use Gloudemans\Shoppingcart\Cart;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class CartController extends Controller
 {
@@ -14,10 +19,43 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {        /*   dd(Cart::content()); */
+    public function index(Request $request,Cart $cart,Panier $panier,Categorie $categorie)
+    {
+       $data=[];
+       $user_id = Auth()->user()->id;
 
-      return view('cart.index');
+         /* 
+       foreach($cart->content() as $cat)
+       {
+          $data[] = $categorie->find($cat->id);
+      
+       } */
+      $p = $panier->all();
+       $cpt=0;
+      
+     foreach ($p as  $unp) {
+       if($unp->identifier==$user_id)
+       {
+            foreach(unserialize($unp->content) as $produit)
+            {
+                $data[]=$produit;
+                $cpt++;
+            }
+
+       }
+        
+    }
+
+    /* dd($data); */
+    
+          
+
+      return view('cart.index',[
+        'data'=>$data,
+        'cpt'=>$cpt,
+        'user_id'=>$user_id
+
+      ]);
     }
 
     /**
@@ -36,26 +74,38 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Categorie  $categorie)
+    public function store(Request $request,Categorie  $categorie,User $user,Cart $cart)
     {
-        //
+        
        
        $categorie = Categorie::find($request->produit_id);
 
-       $duplicata = Cart::search(function ($cartItem, $rowId) use ($request) {
+       $duplicata =  $cart->search(function ($cartItem, $rowId) use ($request) {
         return $cartItem->id === $request->produit_id;
     });
         //dd($duplicata);
     if ($duplicata->isNotEmpty())
     {
 
-        return to_route('home')->with('success','cet produit existe deja dans le panier');
+        return to_route('home')->with('error','cet produit existe deja dans le panier');
     }
-
-       Cart::add($request->produit_id,$categorie->designation, 1, $categorie->prix, ['img'=>$categorie->img])->associate($categorie);
+if(Auth()->check())
+{
+    $cart->add($request->produit_id,$categorie->designation, 1, $categorie->prix, ['img'=>$categorie->img])->associate($categorie);
+    $cart->store(Auth()->user()->id);
+}
+    
+        
+       
 
         return to_route('home')->with('success','le produit a ete ajouter au le panier');
+     
 
+
+     /*  Cart::add($request->produit_id,$categorie->designation, 1, $categorie->prix, ['img'=>$categorie->img])->associate($categorie);
+            
+
+        return to_route('home')->with('success','le produit a ete ajouter au le panier');  */
     }
 
     /**
@@ -75,9 +125,21 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function vide()
+    public function vide(Panier $panier)
     {
-        Cart::destroy();
+        $user_id = Auth()->user()->id;
+        $panier->where('identifier',$user_id )->delete();
+     /*    $temp = $panier->all();
+        foreach ($temp as  $unp) {
+            if($unp->identifier==$user_id)
+            {
+                $unp->delete();
+            }
+        }
+     
+        dd($panier->where('identifier',$user_id )->get()); */
+        
+        
         return to_route('cart.index')->with('success','panier vidé! ');
     }
 
@@ -100,9 +162,14 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($rowid)
+    public function destroy($rowid,Panier $panier)
     {
-       Cart::remove($rowid);
-       return to_route('cart.index')->with('success','produit supprime ');
+        $user_id = Auth()->user()->id;
+        $panier=$panier->where('identifier',$user_id )->get();
+        foreach(unserialize($panier->content) as $item)
+        {
+            $item->where('rowId',$rowid )->delete();
+        }
+        return to_route('cart.index')->with('success','produit supprime ');
     }
 }

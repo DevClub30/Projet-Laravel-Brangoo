@@ -1,57 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/style3.css">
+    <link rel="stylesheet" href="/vendor/mdi/css/materialdesignicons.min.css">
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>@yield('title')</title>
+
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Admin</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    @php
-    $route= request()->route()->getName();
 
-    @endphp
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link " aria-current="page" @class(['nav-link','active' => str_contains($route,'produit.')]) href="{{route('admin.produit.index')}}">Produits</a>
-        <a class="nav-link" @class(['nav-link','active' => str_contains($route,'categorie.')]) href="{{route('admin.categorie.index')}}">Categories</a>
+
+
+  <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+        <a class="sidebar-brand brand-logo" href="/">  Brangoo...</a>
       </div>
+      <ul class="nav">
+        <li class="nav-item profile">
+          <div class="profile-desc">
+            <div class="profile-pic">
+              <div class="count-indicator">
+                <img class="img-xs rounded-circle " src="/images/user.svg" alt="">
+                <span class="count bg-success"></span>
+              </div>
+              <div class="profile-name">
+                <h5 class="mb-0 font-weight-normal">{{ Auth::user()->name }}</h5>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item nav-category">
+          <span class="nav-link">Navigation</span>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="{{route('admin.')}}">
+            <span class="menu-icon">
+              <i class="mdi mdi-speedometer"></i>
+            </span>
+            <span class="menu-title">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="{{route('admin.user.index')}}">
+            <span class="menu-icon">
+              <i class="mdi mdi-account"></i>
+            </span>
+            <span class="menu-title">LIste des Clients</span>
+          </a>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="{{route('admin.categorie.index')}}">
+            <span class="menu-icon">
+              <i class="mdi mdi-table-large"></i>
+            </span>
+            <span class="menu-title">Liste des Produits</span>
+          </a>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="{{route('admin.produit.index')}}">
+            <span class="menu-icon">
+              <i class="mdi mdi-table-large"></i>
+            </span>
+            <span class="menu-title">Catégories de Produits</span>
+          </a>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="#">
+            <span class="menu-icon">
+              <i class="mdi mdi-cart-outline"></i>
+            </span>
+            <span class="menu-title">Commandes</span>
+          </a>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="#">
+            <span class="menu-icon">
+              <i class="mdi mdi-truck"></i>
+            </span>
+            <span class="menu-title">Livraison</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar p-0 fixed-top d-flex flex-row">
+        <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <ul class="navbar-nav navbar-nav-right">
+            
+            
+            <li class="nav-item dropdown border-left">
+              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-email"></i>
+                <span class="count bg-success"></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                <h6 class="p-3 mb-0">Messages</h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="/images/user.svg" alt="image" class="rounded-circle profile-pic">
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1">Mark send you a message</p>
+                    <p class="text-muted mb-0"> 1 Minutes ago </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+                <div class="navbar-profile">
+                  <img class="img-xs rounded-circle" src="/images/user.svg" alt="">
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
+                  <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
+                <h6 class="p-3 mb-0">Profile</h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-settings text-success"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject mb-1">Parametre</p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <div class="preview-item-content">
+                  @auth
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <x-dropdow-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"> </x-dropdow-link>
+                  </form>
+                  @endauth
+                </div>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-format-line-spacing"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          
+          @yield('content')
+          
+          
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
     </div>
+    <!-- page-body-wrapper ends -->
   </div>
-  @auth
-  <form method="POST" action="{{ route('logout') }}">
-      @csrf
-
-        <x-dropdown-link :href="route('logout')"
-                onclick="event.preventDefault();
-                            this.closest('form').submit();">
-        </x-dropdown-link>
-  </form>
-  @endauth
-</nav>
-@if(session('success'))
-<div class="btn btn-success">
-   {{session('success')}}
-</div>
-@endif
-@if($errors->any())
-    <div class="alert alert-danger">
-        <ul class="my-0">
-            @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-    @yield('content')
-    
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="/js/dashboard.js"></script>
+<script src="/js/misc.js"></script>
+<script src="/vendor/chart.js/Chart.min.js"></script>
+<script src="/vendor/js/vendor.bundle.base.js"></script>
+
+@if(session('success'))
+<script>
+  Swal.fire({
+  title: 'Succès!',
+  text: '{{session('success')}}'  ,
+  icon: 'success',
+  confirmButtonText: 'OK',
+  timer: 2500
+});
+</script>
+@endif
+
 </html>
